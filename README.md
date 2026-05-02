@@ -1,34 +1,59 @@
-Pico
-====
+# Ιστορία — Pico
 
-[![License](https://picocms.github.io/badges/pico-license.svg)](https://github.com/picocms/pico-composer/blob/master/LICENSE)
-[![Version](https://picocms.github.io/badges/pico-version.svg)](https://github.com/picocms/pico-composer#install)
-[![Freenode IRC Webchat](https://picocms.github.io/badges/pico-chat.svg)](https://webchat.freenode.net/?channels=%23picocms)
-[![Open Bounties on Bountysource](https://www.bountysource.com/badge/team?team_id=198139&style=bounties_received)](https://www.bountysource.com/teams/picocms)
+## Σκοπός του project
 
-Pico is a stupidly simple, blazing fast, flat file CMS.
+Αυτό το αποθετήριο είναι μια **στατική ιστοσελίδα παγκόσμιας ιστορίας** που στήνεται με το **[Pico CMS](https://picocms.org/)**: flat-file CMS χωρίς βάση δεδομένων — το περιεχόμενο είναι αρχεία Markdown κάτω από το `content/`, με μετα-δεδομένα YAML και πρότυπα Twig στο `themes/`.
 
-Visit us at http://picocms.org/ and see http://picocms.org/about/ for more info.
+Οι κύριες ενότητες (ελληνόγλωσσες συνοπτικές χρονολογίες) είναι:
 
-This is Pico's [Composer][] starter project. `picocms/pico-composer` is the frame for basically all Pico installations starting with Pico 2.0, but doesn't consist of any considerable code itself. It's main purpose is to simply depend on Pico. Please refer to the ["Install"][MainRepoInstall] and ["Upgrade"][MainRepoUpgrade] sections of our main repository for information about how to install, upgrade and use Pico.
+- **Προϊστορία** — `content/prehistory/`
+- **Αρχαία ιστορία** (1000 π.Χ. – 500 μ.Χ.) — `content/ancient_history/`
+- **Μεσαίωνας** — `content/middle_ages/`
+- **Νεότερη εποχή** — `content/recent_history/`
+- **Σύγχρονη ιστορία** — `content/modern_history/`
 
-Screenshot
-----------
+Η αρχική επιλογή σελίδων βρίσκεται στο `content/index.md`. Ορισμένα τμήματα παράγουν μεγάλους πίνακες γεγονότων με βοηθητικά scripts Python (`gen.py`, και όπου υπάρχει `build_data.py`)· μετά την επεξεργασία των πηγών, τρέξτε τα από τον αντίστοιχο φάκελο για να ανανεωθεί το `index.md`.
 
-![Pico Screenshot](https://picocms.github.io/screenshots/pico-21.png)
+## Απαιτήσεις
 
-Getting Help
-------------
+- **PHP** 7.2 ή νεότερο (συμβατό με Pico 2.1)
+- **[Composer](https://getcomposer.org/)** 2.x
+- Διακομιστής ιστού (Apache, nginx, ή ενσωματωμένος εξυπηρετητής PHP για τοπική ανάπτυξη)
 
-Please refer to the ["Getting Help" section][MainRepoGettingHelp] of our main repository.
+## Εγκατάσταση
 
-Contributing
-------------
+1. Κλωνοποίηση ή αντιγραφή του project σε έναν κατάλογο στον διακομιστή σας.
 
-Please refer to the ["Contributing" section][MainRepoContributing] of our main repository.
+2. Εγκατάσταση εξαρτήσεων PHP:
 
-[Composer]: https://getcomposer.org/
-[MainRepoInstall]: https://github.com/picocms/Pico#install
-[MainRepoUpgrade]: https://github.com/picocms/Pico#upgrade
-[MainRepoGettingHelp]: https://github.com/picocms/Pico#getting-help
-[MainRepoContributing]: https://github.com/picocms/Pico#contributing
+   ```bash
+   cd pico
+   composer install
+   ```
+
+   Αυτό θα δημιουργήσει το `vendor/` και θα εγκαταστήσει το Pico, το προεπιλεγμένο θέμα και τα σχετικά πακέτα σύμφωνα με το `composer.json`.
+
+3. Ρύθμιση ιστοτόπου: αντιγράψτε το `config/config.yml.template` σε `config/config.yml` αν χρειάζεται, και ορίστε τουλάχιστον `site_title` (ή άλλες επιλογές σύμφωνα με την [τεκμηρίωση Pico](https://picocms.org/docs/#config)).
+
+4. **Document root** του web server πρέπει να δείχνει στον **κατάλογο όπου βρίσκεται το `index.php`** (εδώ η ρίζα του project `pico/`, όχι υποφάκελος `content/`).
+
+5. Δικαιώματα: βεβαιωθείτε ότι ο διακομιστής μπορεί να διαβάζει `content/`, `config/`, `themes/` και `vendor/`.
+
+### Τοπική δοκιμή (γρήγορα)
+
+```bash
+cd pico
+composer install
+php -S localhost:8080
+```
+
+Ανοίξτε στον browser: `http://localhost:8080`
+
+## Περαιτέρω βοήθεια
+
+- Επίσημη τεκμηρίωση Pico: [picocms.org/docs](https://picocms.org/docs/)
+- Εγκατάσταση / αναβάθμιση upstream: [picocms/Pico — Install](https://github.com/picocms/Pico#install)
+
+## Άδεια
+
+Το upstream Pico και τα σχετικά πακέτα ακολουθούν τις άδειές τους (π.χ. MIT για το `picocms/pico-composer`). Το περιεχόμενο ιστορίας στο `content/` ανήκει στον ιδιοκτήτη του project.
