@@ -1,1 +1,6 @@
 site_title: Ιστορία
+
+# Σειρά στο μενού: αριθμός Order στο YAML κάθε σελίδας (αύξουσα)
+pages_order_by: meta
+pages_order_by_meta: order
+pages_order: asc

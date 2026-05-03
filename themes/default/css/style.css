@@ -155,9 +155,48 @@ body { display: flex; flex-direction: column; }
 
 #header { background: var(--color-header); }
 
-#title, #logo {
-    float: left;
-    padding: 3em 3em 3em 0;
+/* Δύο στήλες: brand (τίτλος·υπότιτλος + links κάτω) | θέμα */
+#header > .header-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: 'brand tools';
+    align-items: start;
+    column-gap: 1rem;
+    row-gap: 0.5rem;
+}
+
+#nav-toggle {
+    display: none;
+}
+
+.header-brand {
+    grid-area: brand;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    align-self: center;
+    min-width: 0;
+}
+
+.header-brand-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.header-titles {
+    flex: 1 1 16em;
+    min-width: 0;
+}
+
+.header-brand-row #logo {
+    float: none;
+    padding: 3em 2em 1em 0;
+}
+
+.header-titles #title {
+    float: none;
+    padding: 3em 2em 0.35em 0;
 }
 
 #title * { margin: 0; color: var(--color-title-on-header); }
@@ -167,23 +206,37 @@ body { display: flex; flex-direction: column; }
 #logo * { display: block; height: 100%; }
 #logo img { min-width: 4.8em; }
 
-#logo + #title h1 { margin: 0.8rem 0; }
-#logo + #title.tagline h1 { margin: 0; }
+.header-titles #title h1 { margin: 0.8rem 0; }
+.header-titles #title.tagline h1 { margin: 0; }
 
 #nav {
-    padding: 3em 0;
-    text-align: right;
+    padding: 0 0 1.25em;
+    min-width: 0;
+    width: 100%;
+    text-align: left;
 }
 #nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.35em 1em;
 }
 #nav ul li {
     display: inline-block;
-    margin-left: 1em;
+    margin: 0;
     padding: 0;
     font-weight: bold;
+}
+
+.header-tools {
+    grid-area: tools;
+    justify-self: end;
+    align-self: start;
+    padding-top: 3em;
 }
 
 #nav a, #nav-toggle { color: var(--color-nav); }
@@ -191,7 +244,7 @@ body { display: flex; flex-direction: column; }
 
 .color-scheme-picker {
     display: inline-block;
-    margin: 0 0 0 1em;
+    margin: 0;
     vertical-align: middle;
     white-space: nowrap;
 }
@@ -230,15 +283,6 @@ html.theme-dark #color-scheme-select {
 }
 #color-scheme-select:focus-visible {
     box-shadow: 0 0 0 2px var(--color-focus-glow);
-}
-
-#nav-toggle { display: none; }
-
-/* IE8 + IE9 clearfix */
-#header > .container:after {
-    content: '';
-    display: block;
-    clear: both;
 }
 
 /*** BASIC LAYOUT: FOOTER ***/
@@ -324,27 +368,55 @@ html.theme-dark #color-scheme-select {
 @media (max-width: 767px) {
     #main { padding: 2em 0 1em; }
 
-    #title, #logo { padding: 2em 1.5em 2em 0; }
+    #header > .header-layout {
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+            'brand toggle'
+            'tools tools';
+    }
+
+    #nav-toggle {
+        grid-area: toggle;
+        align-self: start;
+        justify-self: end;
+    }
+
+    .header-brand-row #logo {
+        padding: 2em 1.5em 1em 0;
+    }
+
+    .header-titles #title {
+        padding: 2em 1.5em 0.35em 0;
+    }
     #logo { height: 8.8em; }
 
+    .header-tools {
+        padding-top: 0;
+    }
+
     #nav {
-        clear: both;
         padding: 0;
     }
     #nav ul {
+        flex-direction: column;
+        gap: 0;
         padding-bottom: 1em;
     }
     #nav ul li {
         display: block;
-        margin-left: 0;
-        text-align: center;
+        text-align: left;
     }
     #nav ul li a {
         display: block;
         padding: 0.5em 0;
     }
 
-    #nav .color-scheme-picker {
+    .header-tools {
+        justify-self: center;
+        width: 100%;
+    }
+
+    .header-tools .color-scheme-picker {
         display: block;
         margin: 0.75em 0 0;
         text-align: center;
@@ -352,7 +424,6 @@ html.theme-dark #color-scheme-select {
 
     .js #nav-toggle {
         display: block;
-        float: right;
         width: 2em;
         margin: 0.6667em 0;
         font-size: 1.5rem;
@@ -381,7 +452,7 @@ body {
     background: var(--color-page);
 }
 
-p, td, th, li, dd {
+p, li, dd {
     text-align: justify;
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -452,11 +523,22 @@ td, th {
     padding: 0.4em 1em;
     vertical-align: top;
 }
+td {
+    text-align: left;
+}
 th {
     font-weight: bold;
     text-align: center;
     background: var(--color-th-bg);
     color: var(--color-th-text);
+}
+
+/* παράγραφοι μέσα σε κελιά· κεφαλίδες παραμένουν κεντραρισμένες */
+table td p {
+    text-align: left;
+}
+table th p {
+    text-align: center;
 }
 
 td, th {                                         border: 1px solid var(--color-stone); }

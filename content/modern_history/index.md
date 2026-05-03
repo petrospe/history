@@ -5,6 +5,7 @@ Author: Πέτρος
 Date: 2026-05-02
 Robots: noindex,nofollow
 Template: index
+order: 50
 sources: https://www.slideshare.net/epapadi/20-47958334, https://www.tanea.gr/1999/12/01/greece/ta-50-gegonota-poy-sygklonisan-ton-kosmo/
 ---
 |Ετος|Γεγονός|Παρατηρήσεις|

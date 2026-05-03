@@ -36,44 +36,43 @@
 <body{% if config.theme_config.widescreen %} class="widescreen"{% endif %}>
 
     <div id="header" role="banner">
-        <div class="container">
+        <div class="container header-layout">
             <a id="nav-toggle" title="Toggle Menu" role="button" aria-controls="nav" aria-expanded="false" tabindex="1">
                 <span class="icon-menu" aria-hidden="true"></span>
                 <span class="sr-only">Toggle Menu</span>
             </a>
-            {% if pages["_meta"].meta.logo %}
-                {% set logo_raw = pages["_meta"].meta.logo %}
-                {% set logo_url = logo_raw|url %}
-                {% set uses_pico_logo = 'pico.svg' in logo_raw %}
-                {% set logo_white_url = theme_url ~ '/img/pico-white.svg' %}
-                <div id="logo" aria-hidden="true">
-                    <a href="{{ "index"|link }}">
-                        {% if uses_pico_logo %}
-                            <img id="site-logo-img"
-                                 src="{{ _color_scheme == 'dark' ? logo_white_url : logo_url }}"
-                                 data-logo-light="{{ logo_url }}"
-                                 data-logo-dark="{{ logo_white_url }}"
-                                 alt="" />
-                        {% else %}
-                            <img src="{{ logo_url }}" alt="" />
-                        {% endif %}
-                    </a>
+            <div class="header-brand">
+                <div class="header-brand-row">
+                    {% if pages["_meta"].meta.logo %}
+                        {% set logo_raw = pages["_meta"].meta.logo %}
+                        {% set logo_url = logo_raw|url %}
+                        {% set uses_pico_logo = 'pico.svg' in logo_raw %}
+                        {% set logo_white_url = theme_url ~ '/img/pico-white.svg' %}
+                        <div id="logo" aria-hidden="true">
+                            <a href="{{ "index"|link }}">
+                                {% if uses_pico_logo %}
+                                    <img id="site-logo-img"
+                                         src="{{ _color_scheme == 'dark' ? logo_white_url : logo_url }}"
+                                         data-logo-light="{{ logo_url }}"
+                                         data-logo-dark="{{ logo_white_url }}"
+                                         alt="" />
+                                {% else %}
+                                    <img src="{{ logo_url }}" alt="" />
+                                {% endif %}
+                            </a>
+                        </div>
+                    {% endif %}
+                    <div class="header-titles">
+                        <div id="title"{{ pages["_meta"].meta.tagline ? ' class="tagline"' }}>
+                            <a href="{{ "index"|link }}">
+                                <h1>{{ site_title }}</h1>
+                                {{ pages["_meta"].meta.tagline|markdown }}
+                            </a>
+                        </div>
+                    </div>
                 </div>
-            {% endif %}
-            <div id="title"{{ pages["_meta"].meta.tagline ? ' class="tagline"' }}>
-                <a href="{{ "index"|link }}">
-                    <h1>{{ site_title }}</h1>
-                    {{ pages["_meta"].meta.tagline|markdown }}
-                </a>
             </div>
-            <div id="nav" role="navigation" tabindex="-1">
-                <ul>
-                    {% for page in pages(depthOffset=-1) if page.title and not page.hidden %}
-                        <li{% if page.id == current_page.id %} class="active"{% endif %}>
-                            <a href="{{ page.url }}">{{ page.title }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
+            <div class="header-tools">
                 <div class="color-scheme-picker">
                     <label for="color-scheme-select" class="color-scheme-label">Θέμα</label>
                     <select id="color-scheme-select" name="color-scheme">
@@ -83,6 +82,15 @@
                     </select>
                 </div>
             </div>
+            <nav id="nav" role="navigation" tabindex="-1">
+                <ul>
+                    {% for page in pages(depthOffset=-1) if page.title and not page.hidden %}
+                        <li{% if page.id == current_page.id %} class="active"{% endif %}>
+                            <a href="{{ page.url }}">{{ page.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </nav>
         </div>
     </div>
 
