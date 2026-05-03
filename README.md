@@ -7,7 +7,7 @@
 Οι κύριες ενότητες (ελληνόγλωσσες συνοπτικές χρονολογίες) είναι:
 
 - **Προϊστορία** — `content/prehistory/`
-- **Αρχαία ιστορία** (1000 π.Χ. – 500 μ.Χ.) — `content/ancient_history/`
+- **Αρχαία ιστορία** — `content/ancient_history/`
 - **Μεσαίωνας** — `content/middle_ages/`
 - **Νεότερη εποχή** — `content/recent_history/`
 - **Σύγχρονη ιστορία** — `content/modern_history/`
@@ -31,7 +31,13 @@
    composer install
    ```
 
-   Αυτό θα δημιουργήσει το `vendor/` και θα εγκαταστήσει το Pico, το προεπιλεγμένο θέμα και τα σχετικά πακέτα σύμφωνα με το `composer.json`.
+   Αν εμφανιστεί η ερώτηση:
+
+   `Do you trust "picocms/composer-installer" to execute code and wish to enable it now? (writes "allow-plugins" to composer.json) [y,n,d,?]`
+
+   απαντήστε **`n`**. Με **`y`** το εγκαθιστά plugin μπορεί να **ξανατρέξει εγκαταστάσεις θέματος** και να **ανακαταστήσει ή αντικαταστήσει** το προσαρμοσμένο `themes/default`· το **`n`** αποφεύγει αυτή τη συμπεριφορά.
+
+   Αυτό θα δημιουργήσει το `vendor/` και θα εγκαταστήσει το Pico και τα σχετικά πακέτα σύμφωνα με το `composer.json`.
 
 3. Ρύθμιση ιστοτόπου: αντιγράψτε το `config/config.yml.template` σε `config/config.yml` αν χρειάζεται, και ορίστε τουλάχιστον `site_title` (ή άλλες επιλογές σύμφωνα με την [τεκμηρίωση Pico](https://picocms.org/docs/#config)).
 
@@ -43,7 +49,7 @@
 
 ```bash
 cd pico
-composer install
+composer install   # στο prompt του composer-installer: n (βλ. παραπάνω)
 php -S localhost:8080
 ```
 
