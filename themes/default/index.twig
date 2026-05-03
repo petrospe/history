@@ -1,6 +1,19 @@
+{% set _color_scheme = (config.theme_config|default({})).color_scheme|default('default') %}
 <!DOCTYPE html>
-<html class="no-js">
+<html class="no-js{% if _color_scheme == 'pico' %} theme-pico{% elseif _color_scheme == 'dark' %} theme-dark{% endif %}">
 <head>
+    <script>
+        (function () {
+            try {
+                var k = 'pico-color-scheme', v = localStorage.getItem(k), d = document.documentElement;
+                if (v === 'pico' || v === 'dark' || v === 'default') {
+                    d.classList.remove('theme-pico', 'theme-dark');
+                    if (v === 'pico') d.classList.add('theme-pico');
+                    else if (v === 'dark') d.classList.add('theme-dark');
+                }
+            } catch (e) { /* ignore */ }
+        })();
+    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
@@ -29,9 +42,21 @@
                 <span class="sr-only">Toggle Menu</span>
             </a>
             {% if pages["_meta"].meta.logo %}
+                {% set logo_raw = pages["_meta"].meta.logo %}
+                {% set logo_url = logo_raw|url %}
+                {% set uses_pico_logo = 'pico.svg' in logo_raw %}
+                {% set logo_white_url = theme_url ~ '/img/pico-white.svg' %}
                 <div id="logo" aria-hidden="true">
                     <a href="{{ "index"|link }}">
-                        <img src="{{ pages["_meta"].meta.logo|url }}" alt="" />
+                        {% if uses_pico_logo %}
+                            <img id="site-logo-img"
+                                 src="{{ _color_scheme == 'dark' ? logo_white_url : logo_url }}"
+                                 data-logo-light="{{ logo_url }}"
+                                 data-logo-dark="{{ logo_white_url }}"
+                                 alt="" />
+                        {% else %}
+                            <img src="{{ logo_url }}" alt="" />
+                        {% endif %}
                     </a>
                 </div>
             {% endif %}
@@ -49,6 +74,14 @@
                         </li>
                     {% endfor %}
                 </ul>
+                <div class="color-scheme-picker">
+                    <label for="color-scheme-select" class="color-scheme-label">Θέμα</label>
+                    <select id="color-scheme-select" name="color-scheme">
+                        <option value="default">Θερμό</option>
+                        <option value="pico">Pico</option>
+                        <option value="dark">Σκοτεινό</option>
+                    </select>
+                </div>
             </div>
         </div>
     </div>

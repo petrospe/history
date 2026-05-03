@@ -40,7 +40,7 @@ Anyway, since Pico's default theme is meant to be a starting point for your own 
 
 ```yaml
 ---
-Logo: %theme_url%/img/pico-white.svg
+Logo: %theme_url%/img/pico.svg
 Tagline: Making the web easy.
 Social:
     - title: Visit us on GitHub

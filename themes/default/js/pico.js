@@ -11,8 +11,59 @@
 
 function main()
 {
-    // capability CSS classes
-    document.documentElement.className = 'js';
+    // capability CSS classes (preserve theme-pico / other html classes)
+    var root = document.documentElement;
+    root.classList.remove('no-js');
+    root.classList.add('js');
+
+    // Color scheme + logo swap (no inline body script; some stacks strip it and show source as text)
+    var colorSchemeKey = 'pico-color-scheme';
+    var colorSelect = document.getElementById('color-scheme-select');
+
+    function syncThemeLogo(scheme) {
+        var img = document.getElementById('site-logo-img');
+        if (!img) return;
+        var darkUrl = img.getAttribute('data-logo-dark');
+        var lightUrl = img.getAttribute('data-logo-light');
+        if (!darkUrl || !lightUrl) return;
+        img.setAttribute('src', scheme === 'dark' ? darkUrl : lightUrl);
+    }
+
+    function applyColorScheme(scheme) {
+        root.classList.remove('theme-pico', 'theme-dark');
+        if (scheme === 'pico') {
+            root.classList.add('theme-pico');
+        } else if (scheme === 'dark') {
+            root.classList.add('theme-dark');
+        }
+        syncThemeLogo(scheme);
+    }
+
+    function storedOrServerScheme() {
+        try {
+            var stored = localStorage.getItem(colorSchemeKey);
+            if (stored === 'pico' || stored === 'dark' || stored === 'default') {
+                return stored;
+            }
+        } catch (e) { /* private mode */ }
+        if (root.classList.contains('theme-dark')) return 'dark';
+        if (root.classList.contains('theme-pico')) return 'pico';
+        return 'default';
+    }
+
+    var effectiveScheme = storedOrServerScheme();
+    syncThemeLogo(effectiveScheme);
+
+    if (colorSelect) {
+        colorSelect.value = effectiveScheme;
+        colorSelect.addEventListener('change', function () {
+            var v = colorSelect.value;
+            try {
+                localStorage.setItem(colorSchemeKey, v);
+            } catch (e) { /* ignore */ }
+            applyColorScheme(v);
+        });
+    }
 
     // wrap tables
     var tables = document.querySelectorAll('#main > .container > table');

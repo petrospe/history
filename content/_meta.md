@@ -1,5 +1,5 @@
 ---
-Logo: %theme_url%/img/pico-white.svg
+Logo: %theme_url%/img/pico.svg
 Tagline: Περίληψη ιστορικών γεγονότων.
 Social:
     - title: Visit us on GitHub

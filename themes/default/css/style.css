@@ -14,6 +14,95 @@
  * @version 2.1
  */
 
+/*
+ * Προεπιλογή (default): θερμή παλέτα — #b9936c · #dac292 · #e6e2d3 · #c4b7a6
+ * Σετ «pico»: κλασικά χρώματα του default theme του Pico (`theme-pico`).
+ * Σετ «dark»: σκοτεινό θέμα με teal τόνους (`theme-dark`).
+ */
+:root {
+    --color-accent: #b9936c;
+    --color-header: #dac292;
+    --color-page: #e6e2d3;
+    --color-stone: #c4b7a6;
+
+    --color-text: #3d3530;
+    --color-text-heading: #352f29;
+    --color-accent-hover: #9a7855;
+    --color-nav: #5c4d42;
+    --color-focus-glow: rgba(185, 147, 108, 0.45);
+
+    --color-footer-bg: var(--color-stone);
+    --color-footer-text: var(--color-text);
+    --color-footer-link: var(--color-accent);
+    --color-footer-link-hover: var(--color-accent-hover);
+    --color-title-on-header: var(--color-text-heading);
+    --color-th-bg: var(--color-header);
+    --color-th-text: var(--color-text-heading);
+    --color-hr: var(--color-stone);
+    --color-blockquote-border: var(--color-accent);
+    --color-back-top-hover: var(--color-accent-hover);
+    --color-surface-muted: var(--color-page);
+
+    --color-input-bg: #ffffff;
+    --color-input-fg: var(--color-text);
+}
+
+html.theme-pico {
+    --color-accent: #2EAE9B;
+    --color-header: #2EAE9B;
+    --color-page: #ffffff;
+    --color-stone: #cccccc;
+
+    --color-text: #444444;
+    --color-text-heading: #333333;
+    --color-accent-hover: #444444;
+    --color-nav: #afe1da;
+    --color-focus-glow: rgba(46, 174, 155, 0.45);
+
+    --color-footer-bg: #707070;
+    --color-footer-text: #C0C0C0;
+    --color-footer-link: #dddddd;
+    --color-footer-link-hover: #ffffff;
+    --color-title-on-header: #ffffff;
+    --color-th-bg: #f5f5f5;
+    --color-th-text: #333333;
+    --color-hr: #f5f5f5;
+    --color-blockquote-border: #f5f5f5;
+    --color-back-top-hover: #258a7a;
+    --color-surface-muted: #f5f5f5;
+
+    --color-input-bg: #ffffff;
+    --color-input-fg: var(--color-text);
+}
+
+html.theme-dark {
+    --color-accent: #3dd4bc;
+    --color-header: #123d37;
+    --color-page: #161c1b;
+    --color-stone: #3d4f4b;
+
+    --color-text: #d1dbd8;
+    --color-text-heading: #eef6f4;
+    --color-accent-hover: #7ee8d8;
+    --color-nav: #9ddfd2;
+    --color-focus-glow: rgba(61, 212, 188, 0.45);
+
+    --color-footer-bg: #0c1211;
+    --color-footer-text: #9faeaa;
+    --color-footer-link: #5ecfb8;
+    --color-footer-link-hover: #b8f5ea;
+    --color-title-on-header: #f2faf8;
+    --color-th-bg: #1e2a27;
+    --color-th-text: #dce8e5;
+    --color-hr: #2a3835;
+    --color-blockquote-border: #2a7d6e;
+    --color-back-top-hover: #237a6d;
+    --color-surface-muted: #1f2826;
+
+    --color-input-bg: #182220;
+    --color-input-fg: var(--color-text);
+}
+
 * {
     box-sizing: border-box;
     border: 0 none;
@@ -49,6 +138,7 @@ body { display: flex; flex-direction: column; }
 
 #main {
     padding: 5em 0 4em;
+    background: var(--color-page);
 }
 
 .container {
@@ -63,14 +153,14 @@ body { display: flex; flex-direction: column; }
 
 /*** BASIC LAYOUT: HEADER ***/
 
-#header { background: #2EAE9B; }
+#header { background: var(--color-header); }
 
 #title, #logo {
     float: left;
     padding: 3em 3em 3em 0;
 }
 
-#title * { margin: 0; color: #fff; }
+#title * { margin: 0; color: var(--color-title-on-header); }
 #title p { font-style: italic; }
 
 #logo { height: 10.8em; }
@@ -96,8 +186,51 @@ body { display: flex; flex-direction: column; }
     font-weight: bold;
 }
 
-#nav a, #nav-toggle { color: #afe1da; }
+#nav a, #nav-toggle { color: var(--color-nav); }
 #nav .active a, #nav a:hover, #nav-toggle:hover { color: #fff; }
+
+.color-scheme-picker {
+    display: inline-block;
+    margin: 0 0 0 1em;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.color-scheme-label {
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-right: 0.35em;
+    color: var(--color-nav);
+    vertical-align: middle;
+}
+#color-scheme-select {
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: bold;
+    max-width: 9em;
+    padding: 0.2em 0.35em;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    border-radius: 0.25em;
+    background: rgba(255, 255, 255, 0.45);
+    color: var(--color-nav);
+    cursor: pointer;
+}
+html.theme-pico #color-scheme-select {
+    border-color: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.2);
+}
+html.theme-dark #color-scheme-select {
+    border-color: rgba(157, 223, 210, 0.35);
+    background: rgba(0, 0, 0, 0.25);
+    color: var(--color-nav);
+}
+#color-scheme-select:hover,
+#color-scheme-select:focus {
+    border-color: var(--color-nav);
+    outline: none;
+}
+#color-scheme-select:focus-visible {
+    box-shadow: 0 0 0 2px var(--color-focus-glow);
+}
 
 #nav-toggle { display: none; }
 
@@ -111,12 +244,12 @@ body { display: flex; flex-direction: column; }
 /*** BASIC LAYOUT: FOOTER ***/
 
 #footer {
-    background: #707070;
-    color: #C0C0C0;
+    background: var(--color-footer-bg);
+    color: var(--color-footer-text);
 }
 
-#footer a { color: #ddd; }
-#footer a:hover { color: #fff; }
+#footer a { color: var(--color-footer-link); }
+#footer a:hover { color: var(--color-footer-link-hover); }
 
 /* Αιωρούμενο κουμπί επιστροφής στην κορυφή (εμφανίζεται όταν δεν φαίνεται το header) */
 .back-to-top {
@@ -129,7 +262,7 @@ body { display: flex; flex-direction: column; }
     padding: 0;
     border: 0 none;
     border-radius: 50%;
-    background: #2EAE9B;
+    background: var(--color-accent);
     color: #fff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
@@ -152,7 +285,7 @@ body { display: flex; flex-direction: column; }
 
 .back-to-top:hover,
 .back-to-top:focus {
-    background: #258a7a;
+    background: var(--color-back-top-hover);
     color: #fff;
     outline: none;
 }
@@ -211,6 +344,12 @@ body { display: flex; flex-direction: column; }
         padding: 0.5em 0;
     }
 
+    #nav .color-scheme-picker {
+        display: block;
+        margin: 0.75em 0 0;
+        text-align: center;
+    }
+
     .js #nav-toggle {
         display: block;
         float: right;
@@ -238,7 +377,8 @@ body {
     font-variant-ligatures: common-ligatures;
     text-rendering: optimizeLegibility;
     font-kerning: normal;
-    color: #444;
+    color: var(--color-text);
+    background: var(--color-page);
 }
 
 p, td, th, li, dd {
@@ -252,17 +392,17 @@ p, hr, table, .table-responsive, ol, ul, dl, dd, pre, blockquote, fieldset {
 }
 
 a {
-    color: #2EAE9B;
+    color: var(--color-accent);
     text-decoration: none;
     -webkit-transition: color .2s ease-in;
             transition: color .2s ease-in;
 }
-a:hover { color: #444; }
+a:hover { color: var(--color-accent-hover); }
 
 h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0.6em;
     font-weight: bold;
-    color: #333;
+    color: var(--color-text-heading);
 }
 h1 { font-size: 2rem; }
 h2 { font-size: 1.7rem; }
@@ -274,9 +414,9 @@ h6 { font-size: 1rem; font-weight: normal; font-style: italic; }
 img { max-width: 100%; }
 
 hr {
-    border: 0.15em solid #f5f5f5;
+    border: 0.15em solid var(--color-hr);
     border-radius: 0.3em;
-    background: #f5f5f5;
+    background: var(--color-hr);
 }
 
 abbr { text-decoration: underline dotted; }
@@ -315,11 +455,11 @@ td, th {
 th {
     font-weight: bold;
     text-align: center;
-    background: #f5f5f5;
-    color: #333;
+    background: var(--color-th-bg);
+    color: var(--color-th-text);
 }
 
-td, th {                                         border: 1px solid #ccc; }
+td, th {                                         border: 1px solid var(--color-stone); }
 tr:not(:last-child) td, tr:not(:last-child) th { border-bottom: 0 none; }
 thead tr:last-child th {                         border-bottom: 0 none; }
 td:not(:last-child), th:not(:last-child) {       border-right: 0 none; }
@@ -350,9 +490,9 @@ dd { margin-left: 2em; }
 code {
     margin: 0 0.1em;
     padding: 0.1em 0.2em;
-    border: 1px solid #ccc;
+    border: 1px solid var(--color-stone);
     border-radius: 0.3em;
-    background: #f5f5f5;
+    background: var(--color-surface-muted);
     font-family: 'Droid Sans Mono', 'Courier New', 'Courier', monospace;
     font-size: 0.85rem;
     line-height: 1.9824;
@@ -360,9 +500,9 @@ code {
 
 pre {
     padding: 0 1em;
-    border: 1px solid #ccc;
+    border: 1px solid var(--color-stone);
     border-radius: 0.3em;
-    background: #f5f5f5;
+    background: var(--color-surface-muted);
 }
 pre code {
     display: block;
@@ -380,7 +520,7 @@ blockquote {
     font-style: italic;
     margin-left: 1em;
     padding-left: 1em;
-    border-left: 0.5em solid #f5f5f5;
+    border-left: 0.5em solid var(--color-blockquote-border);
 }
 
 /*** FORMS ***/
@@ -388,9 +528,10 @@ blockquote {
 label, fieldset legend { font-weight: bold; }
 
 input:not([type="checkbox"]):not([type="radio"]), button, select, textarea, fieldset, fieldset legend {
-    border: 1px solid #ccc;
+    border: 1px solid var(--color-stone);
     border-radius: 0.3em;
-    background: #fff;
+    background: var(--color-input-bg);
+    color: var(--color-input-fg);
     -webkit-transition: none .2s ease-in;
             transition: none .2s ease-in;
     -webkit-transition-property: border-color, background, box-shadow;
@@ -403,12 +544,12 @@ input:not([type="checkbox"]):not([type="radio"]), button, select, textarea {
     font-size: 1rem;
 }
 input:focus:not([type="checkbox"]):not([type="radio"]), button:focus, select:focus, textarea:focus {
-    border-color: #2EAE9B;
-    box-shadow: 0 0 8px #2EAE9B;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 8px var(--color-focus-glow);
 }
 input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus, button:focus,
 input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
-    background: #f5f5f5;
+    background: var(--color-surface-muted);
     cursor: pointer;
 }
 
@@ -419,7 +560,7 @@ textarea, select[multiple] {
 
 fieldset {
     padding: 1em;
-    background: #f5f5f5;
+    background: var(--color-surface-muted);
 }
 fieldset legend { padding: 0 0.5em; }
 
